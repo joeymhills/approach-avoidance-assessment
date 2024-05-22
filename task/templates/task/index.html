@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VAAST</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        {% load static %}
+        <link rel="icon" type="image/png" href="{% static 'task/images/favicon.png' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'task/css/styles.css' %}">
+    </head>
+    <body class="container">
+        <h1>Welcome to the VAAST Application</h1>
+        <p>This is an interactive test in which you will be presented various words and
+        you will either press "J" or "K"(instructions will continue here)</p>
+        <script src="{% static 'js/vaastTest.js' %}"></script>
+    </body>
+</html>
