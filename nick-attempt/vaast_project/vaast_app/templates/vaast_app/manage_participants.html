@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Participants</title>
+</head>
+<body>
+    <h1>Manage Participants</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject ID</th>
+                <th>Extra Metadata</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for participant in participants %}
+            <tr>
+                <td>{{ participant.subject_id }}</td>
+                <td>{{ participant.extra_metadata }}</td>
+                <td>
+                    <a href="{% url 'participant_detail' participant.id %}">View</a>
+                    <a href="{% url 'edit_participant' participant.id %}">Edit</a>
+                    <a href="{% url 'delete_participant' participant.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

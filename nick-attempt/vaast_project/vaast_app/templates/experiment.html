@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment</title>
+    <style>
+        .stimulus {
+            font-size: 2em;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .fixation {
+            font-size: 3em;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+    <script>
+        let startTime;
+
+        function displayStimulus(stimulus) {
+            document.getElementById('stimulus').innerText = stimulus;
+            startTime = performance.now();
+        }
+
+        function captureResponse(event) {
+            const validKeys = ['Y', 'N'];
+            if (validKeys.includes(event.key.toUpperCase())) {
+                const responseTime = performance.now() - startTime;
+                document.getElementById('response-time').value = responseTime;
+                document.getElementById('response-key').value = event.key.toUpperCase();
+                document.getElementById('response-form').submit();
+            }
+        }
+
+        window.addEventListener('keydown', captureResponse);
+
+        window.onload = function() {
+            const fixationTime = parseInt("{{ fixation_time }}");
+            const stimulus = "{{ stimulus }}";
+
+            setTimeout(() => {
+                document.getElementById('fixation').style.display = 'none';
+                displayStimulus(stimulus);
+            }, fixationTime);  // Show stimulus after fixation duration
+        };
+    </script>
+</head>
+<body>
+    <div class="fixation" id="fixation">+</div>
+    <div class="stimulus" id="stimulus" style="display: none;"></div>
+    <form id="response-form" method="POST" action="{% url 'save_response' %}">
+        {% csrf_token %}
+        <input type="hidden" name="response_time" id="response-time" value="">
+        <input type="hidden" name="response_key" id="response-key" value="">
+    </form>
+</body>
+</html>
